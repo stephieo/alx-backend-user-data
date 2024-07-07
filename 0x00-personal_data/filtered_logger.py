@@ -67,3 +67,20 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                         password=os.getenv('PERSONAL_DATA_DB_PASSWORD', " ")
                         )
     return connection
+
+
+def main() -> None:
+    """ main function here"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT COUNT(*) FROM users;")
+    fields = cursor.column_names
+    for row in cursor:
+        message = "".join("{}={}; ".format(k, v) for k, v in zip(fields, row))
+        logger.info(message.strip())
+    cursor.close()
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
