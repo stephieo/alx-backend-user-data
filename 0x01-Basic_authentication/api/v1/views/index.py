@@ -9,8 +9,8 @@ def status() -> str:
     """returns status of  API"""
     return jsonify({"status": "OK"})
 
+
 @app_views.route("/unauthorized", methods=["GET"])
 def error_401():
     """raises a 401 error"""
     abort(401, "unauthorized")
-

@@ -7,9 +7,11 @@ from api.v1.views import app_views
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
+
 @app.errorhandler(401)
 def unauth_request(error) -> str:
     return jsonify({"error": "Unauthorized"}), 401
+
 
 if __name__ == "__main__":
     API_HOST = os.getenv("API_HOST", "0.0.0.0")
