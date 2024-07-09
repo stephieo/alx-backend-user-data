@@ -10,6 +10,7 @@ app.register_blueprint(app_views)
 
 @app.errorhandler(401)
 def unauth_request(error) -> str:
+    """handles 401 error"""
     return jsonify({"error": "Unauthorized"}), 401
 
 
