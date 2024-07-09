@@ -2,16 +2,14 @@
 """ Routes of flask app"""
 import os
 from flask import Flask, jsonify
-# from  views import app_views
+from api.v1.views import app_views
 
 app = Flask(__name__)
-# app.register_blueprint(app_views)
+app.register_blueprint(app_views)
 
-@app.route("/api/v1/status", methods=["GET"])
-def status():
-    """returns status of  API"""
-    return jsonify({"status": "OK"})
-
+@app.errorhandler(401)
+def unauth_request(error) -> str:
+    return jsonify({"error": "Unauthorized"}), 401
 
 if __name__ == "__main__":
     API_HOST = os.getenv("API_HOST", "0.0.0.0")
