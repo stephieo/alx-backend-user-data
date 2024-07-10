@@ -16,7 +16,7 @@ def error_401() -> str:
     abort(401, "Unauthorized")
 
 
-@app_views.route("/forbidden", method=["GET"])
+@app_views.route("/forbidden", methods=["GET"])
 def error_403() -> str:
     """raises 403 error"""
     abort(403, "Forbidden")
