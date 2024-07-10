@@ -23,13 +23,15 @@ def before_request_handler():
     if auth is None:
         pass
     elif request.path not in ['/api/v1/status/',
+                              '/api/v1/status',
                               '/api/v1/unauthorized/',
-                              '/api/v1/forbidden/']:
-        pass
-    elif auth.authorization_header(request) is None:
-        abort(401)
-    elif auth.current_user(request) is None:
-        abort(403)
+                              '/api/v1/unauthorized',
+                              '/api/v1/forbidden/'
+                              '/api/v1/forbidden']:
+        if auth.authorization_header(request) is None:
+            abort(401)
+        elif auth.current_user(request) is None:
+            abort(403)
 
 
 @app.errorhandler(401)
