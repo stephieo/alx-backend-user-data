@@ -12,7 +12,7 @@ class Auth():
         pass
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """doccccdocccc"""    
+        """doccccdocccc"""
         if path is None:
             return True
         if excluded_paths is None or excluded_paths == []:
