@@ -26,15 +26,18 @@ elif AUTH_TYPE == "session_auth":
 @app.before_request
 def before_request_handler():
     """executes before all requests"""
+    cookie = auth.session_cookie(request)
     if auth is None:
         pass
     elif request.path not in ['/api/v1/status/',
                               '/api/v1/status',
                               '/api/v1/unauthorized/',
                               '/api/v1/unauthorized',
-                              '/api/v1/forbidden/'
+                              '/api/v1/forbidden/',
+                              '/api/v1/auth_session/login/',
+                              '/api/v1/auth_session/login',
                               '/api/v1/forbidden']:
-        if auth.authorization_header(request) is None:
+        if auth.authorization_header(request) is None and cookie is None:
             abort(401)
         request.current_user = auth.current_user(request)
         if auth.current_user(request) is None:
