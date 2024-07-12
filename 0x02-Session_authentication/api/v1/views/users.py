@@ -128,4 +128,7 @@ def update_user(user_id: str = None) -> str:
 
 @app_views.route('/users/me', methods=['GET'])
 def retrieve_auth_user():
-    ret
+    """ doccccc docccccc"""
+    if request.current_user is None:
+        abort(404)
+    return jsonify(request.current_user.to_json()), 200
