@@ -5,6 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
 # from typing import TypeVar
@@ -46,4 +48,7 @@ class DB:
 
     def find_user_by(self, **kwargs: dict) -> User:
         """sends a query to the users table"""
-        return self._session.query(User).filter_by(**kwargs).first()
+        try:
+            return self._session.query(User).filter_by(**kwargs).first()
+        except InvalidRequestError or NoResultFound:
+            raise
