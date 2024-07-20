@@ -55,3 +55,17 @@ class DB:
             return self._session.query(User).filter_by(**kwargs).first()
         except NoResultFound as e:
             raise e
+
+    def update_user(self, user_id, **kwargs) -> None:
+        """ finds a user and updates it attributes"""
+        try:
+            user = self.find_user_by(id=user_id)
+        except NoResultFound:
+            return None
+
+        for k, v in kwargs.items():
+            try:
+                setattr(user, k, v)
+            except Error:
+                raise ValueError
+        self._session.commit()
