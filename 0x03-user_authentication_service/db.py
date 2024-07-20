@@ -56,12 +56,12 @@ class DB:
         except NoResultFound as e:
             raise e
 
-    def update_user(self, user_id, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """ finds a user and updates it attributes"""
         try:
             user = self.find_user_by(id=user_id)
-        except NoResultFound:
-            return None
+        except NoResultFound or InvalidRequestError:
+            raise ValueError
 
         for k, v in kwargs.items():
             try:
