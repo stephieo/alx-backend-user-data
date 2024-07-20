@@ -48,7 +48,15 @@ class DB:
 
     def find_user_by(self, **kwargs: dict) -> User:
         """sends a query to the users table"""
-        try:
-            return self._session.query(User).filter_by(**kwargs).first()
-        except InvalidRequestError or NoResultFound:
-            raise
+        for key, value in kwargs.items():
+            if key not in User.__dict__:
+                raise InvalidRequestError
+            
+        for usr in self._session.query(User):
+            if getattr(usr, k) == v:
+                return usr
+        #     return .filter_by(**kwargs).first()
+        # except NoResultFound as e:
+        #     raise e
+        raise NoResultFound
+
