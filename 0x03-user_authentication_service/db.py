@@ -52,11 +52,8 @@ class DB:
             if key not in User.__dict__:
                 raise InvalidRequestError
             
-        for usr in self._session.query(User):
-            if getattr(usr, k) == v:
-                return usr
-        #     return .filter_by(**kwargs).first()
-        # except NoResultFound as e:
-        #     raise e
-        raise NoResultFound
+        try:
+            return self._session.query(User).filter_by(**kwargs).first()
+        except NoResultFound as e:
+            raise e
 
