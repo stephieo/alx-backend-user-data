@@ -64,8 +64,8 @@ class DB:
             raise ValueError
 
         for k, v in kwargs.items():
-            if hasattr(usr, k):
+            try:
                 setattr(user, k, v)
-            else:
+            except Error:
                 raise ValueError
         self._session.commit()
