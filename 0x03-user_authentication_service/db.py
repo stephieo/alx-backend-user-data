@@ -46,7 +46,7 @@ class DB:
         session.commit()
         return user
 
-    def find_user_by(self, **kwargs: dict) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """sends a query to the users table"""
         for key, value in kwargs.items():
             if key not in User.__dict__:
